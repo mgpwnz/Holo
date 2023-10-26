@@ -5,7 +5,7 @@ do
 # Menu
 
 PS3='Select an action: '
-options=("NodeJS" "Install" "Run Operator" "Faucet" "Logs" "Quit")
+options=("NodeJS" "Install" "Run Operator" "Faucet" "Logs" "Exit")
 select opt in "${options[@]}"
                do
                    case $opt in                          
