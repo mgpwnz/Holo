@@ -10,6 +10,7 @@ function installNodeJS {
 	cd $HOME
 	sudo apt update && apt upgrade -y
     sudo apt install -y curl git jq lz4 build-essential unzip < "/dev/null"
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 	apt install nodejs -y
   sleep 1
 }
@@ -81,12 +82,10 @@ do
     case $opt in
         "NodeJS")
 			installNodeJS
-			break
             ;;
         "Install")
 			installSoftware
             installConfig 
-			break
             ;;
 		"Create config")
 			installService 
