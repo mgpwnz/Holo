@@ -1,13 +1,17 @@
 #!/bin/bash
-sudo apt install curl -y < "/dev/null"
-bash_profile=$HOME/.bash_profile
-if [ -f "$bash_profile" ]; then
-    . $HOME/.bash_profile
-fi
+while true
+do
 
-function installNodeJS {
-	echo -e '\n\e[42mPreparing to install\e[0m\n' && sleep 1
-	cd $HOME
+# Menu
+
+PS3='Select an action: '
+options=("NodeJS" "Install" "Run Operator" "Faucet" "Logs" "Quit")
+select opt in "${options[@]}"
+               do
+                   case $opt in                          
+
+"NodeJS")
+cd $HOME
     sudo apt-get install -y ca-certificates curl gnupg
     sudo mkdir -p /etc/apt/keyrings
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
@@ -15,36 +19,25 @@ function installNodeJS {
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
     sudo apt-get update
     sudo apt-get install nodejs -y
-  sleep 1
-}
+break
+;;
 
-function installSoftware {
-  echo -e '\n\e[42mInstall node\e[0m\n' && sleep 1
-	npm install -g @holographxyz/cli
-}
-function installConfig {
-    echo -e '\n\e[42mCreate config\e[0m\n' && sleep 1
-    cd $HOME
-	holograph config
-	}
-function installFaucet {
-    echo -e '\n\e[42mFaucet\e[0m\n' && sleep 1
-    cd $HOME
-	holograph faucet
-	
-  }
-function installBond {
-    holograph operator:bond
-}
-
-function installService {
-    if [ ! $HPass ]; then
-    read -p "Enter Password: " HPass
-    fi
-    echo 'source $HOME/.bashrc' >> $HOME/.bash_profile
-    sleep 1
-    
-
+"Install")
+cd $HOME
+npm install -g @holographxyz/cli
+echo Create config
+sleep 2
+holograph config
+break
+;;
+"Run Operator")
+echo Faucet - Testnet HLG
+sleep 2
+holograph faucet
+echo Bonding Into a Pod 
+#pass
+read -p "Enter Password : " HPass
+#service
 sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
 EOF
@@ -73,38 +66,23 @@ sudo systemctl restart systemd-journald &>/dev/null
 sudo systemctl daemon-reload &>/dev/null
 sudo systemctl enable holograph &>/dev/null
 sudo systemctl restart holograph &>/dev/null
+break
+;;
+"Bridging")
+cd $HOME
+holograph create:contract
+break
+;;
 
-}
+"logs")
+journalctl -n 100 -f -u holograph
+break
+;;
 
-
-
-PS3='Please enter your choice (input your option number and press enter): '
-options=("NodeJS" "Install" "Faucet" "Create config" "Logs" "Quit")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "NodeJS")
-			installNodeJS
-            ;;
-        "Install")
-			installSoftware
-            installConfig 
-            ;;
-		"Create config")
-			installService 
-			break
-            ;;
-        "Faucet")
-            installFaucet
-		    break
-            ;;
-        "Logs")
-            journalctl -n 100 -f -u holograph
-			break
-            ;;    	
-        "Quit")
-            break
-            ;;
-        *) echo -e "\e[91minvalid option $REPLY\e[0m";;
-    esac
+"Exit")
+exit
+;;
+*) echo "invalid option $REPLY";;
+esac
+done
 done
