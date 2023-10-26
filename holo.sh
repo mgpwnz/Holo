@@ -58,7 +58,8 @@ WorkingDirectory=/root/
 ExecStart=holograph operator \
         --mode=auto \
         --unsafePassword=$HPass \
-	    --sync 
+	    --sync \
+        --networks fuji mumbai
 Restart=always
 RestartSec=60
 LimitNOFILE=10000
