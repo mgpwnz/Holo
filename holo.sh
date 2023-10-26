@@ -21,7 +21,6 @@ cd $HOME
     sudo apt-get install nodejs -y
 break
 ;;
-
 "Install")
 cd $HOME
 npm install -g @holographxyz/cli
