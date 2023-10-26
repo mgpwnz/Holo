@@ -14,26 +14,26 @@ function installNodeJS {
   sleep 1
 }
 
-function Software {
+function installSoftware {
   echo -e '\n\e[42mInstall node\e[0m\n' && sleep 1
 	npm install -g @holographxyz/cli
 }
-function Config {
+function installConfig {
     echo -e '\n\e[42mCreate config\e[0m\n' && sleep 1
     cd $HOME
 	holograph config
 	}
-function Faucet {
+function installFaucet {
     echo -e '\n\e[42mFaucet\e[0m\n' && sleep 1
     cd $HOME
 	holograph faucet
 	
   }
-function Bond {
+function installBond {
     holograph operator:bond
 }
 
-function Service {
+function installService {
     if [ ! $HPass ]; then
     read -p "Enter Password: " HPass
     fi
@@ -84,16 +84,16 @@ do
 			break
             ;;
         "Install")
-			Software
-            Config 
+			installSoftware
+            installConfig 
 			break
             ;;
 		"Create config")
-			Service 
+			installService 
 			break
             ;;
         "Faucet")
-            Faucet
+            installFaucet
 		    break
             ;;
         "Logs")
