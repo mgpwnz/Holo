@@ -33,7 +33,9 @@ break
 echo Faucet - Testnet HLG
 sleep 2
 holograph faucet
+#pod
 echo Bonding Into a Pod 
+holograph operator:bond
 #pass
 read -p "Enter Password : " HPass
 #service
