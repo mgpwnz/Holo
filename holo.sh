@@ -39,7 +39,7 @@ function installBond {
 
 function installService {
     if [ ! $HPass ]; then
-    read -p "Enter Password: " HPass
+    read -p "Enter Password : " HPass
     fi
     echo 'source $HOME/.bashrc' >> $HOME/.bash_profile
     sleep 1
@@ -91,6 +91,8 @@ do
             installConfig 
             ;;
 		"Create config")
+            installFaucet
+            installBond
 			installService 
 			break
             ;;
