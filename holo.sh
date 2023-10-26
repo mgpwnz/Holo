@@ -75,7 +75,7 @@ sudo systemctl restart holograph &>/dev/null
 
 
 PS3='Please enter your choice (input your option number and press enter): '
-options=("Node" "Install" "Faucet" "Create config" "Logs" "Quit")
+options=("NodeJS" "Install" "Faucet" "Create config" "Logs" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
