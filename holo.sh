@@ -5,12 +5,11 @@ if [ -f "$bash_profile" ]; then
     . $HOME/.bash_profile
 fi
 
-function Deps {
+function NodeJS {
 	echo -e '\n\e[42mPreparing to install\e[0m\n' && sleep 1
 	cd $HOME
 	sudo apt update && apt upgrade -y
     sudo apt install -y curl git jq lz4 build-essential unzip < "/dev/null"
-	curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 	apt install nodejs -y
   sleep 1
 }
@@ -30,6 +29,9 @@ function Faucet {
 	holograph faucet
 	
   }
+function Bond {
+    holograph operator:bond
+}
 
 function Service {
     if [ ! $HPass ]; then
@@ -73,23 +75,31 @@ sudo systemctl restart holograph &>/dev/null
 
 
 PS3='Please enter your choice (input your option number and press enter): '
-options=("Install" "Quit")
+options=("Node" "Install" "Faucet" "Create config" "Logs" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
-        "Install")
- 		echo -e '\n\e[42mYou choose install...\e[0m\n' && sleep 1
-			Deps
-			Software
-            Config
-            Faucet
-			Service 
-			echo -e '\n\e[33mNode install!\e[0m\n' && sleep 1
-			restore
-			echo -e "Check logs: \e[35m journalctl -n 100 -f -u gear\e[0m\n"
+        "NodeJS")
+			NodeJS
 			break
             ;;
-			
+        "Install")
+			Software
+            Config 
+			break
+            ;;
+		"Create config")
+			Service 
+			break
+            ;;
+        "Faucet")
+            Faucet
+		    break
+            ;;
+        "Logs")
+            journalctl -n 100 -f -u holograph
+			break
+            ;;    	
         "Quit")
             break
             ;;
