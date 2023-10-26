@@ -30,9 +30,9 @@ holograph config
 break
 ;;
 "Run Operator")
-echo Faucet - Testnet HLG
-sleep 2
-holograph faucet
+#echo Faucet - Testnet HLG
+#sleep 2
+#holograph faucet
 #pod
 echo Bonding Into a Pod 
 holograph operator:bond
