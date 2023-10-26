@@ -5,7 +5,7 @@ if [ -f "$bash_profile" ]; then
     . $HOME/.bash_profile
 fi
 
-function NodeJS {
+function installNodeJS {
 	echo -e '\n\e[42mPreparing to install\e[0m\n' && sleep 1
 	cd $HOME
 	sudo apt update && apt upgrade -y
@@ -80,7 +80,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "NodeJS")
-			NodeJS
+			installNodeJS
 			break
             ;;
         "Install")
