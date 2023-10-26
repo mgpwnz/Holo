@@ -69,6 +69,12 @@ sudo systemctl enable holograph &>/dev/null
 sudo systemctl restart holograph &>/dev/null
 break
 ;;
+"Faucet")
+echo Faucet - Testnet HLG
+sleep 2
+holograph faucet
+break
+;;
 "Bridging")
 cd $HOME
 holograph create:contract
