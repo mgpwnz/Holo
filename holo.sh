@@ -5,7 +5,7 @@ do
 # Menu
 
 PS3='Select an action: '
-options=("NodeJS" "Install" "Faucet" "Run Operator" "Logs" "Exit")
+options=("NodeJS" "Install" "Faucet" "Run Operator" "Operator service" "Logs" "Exit")
 select opt in "${options[@]}"
                do
                    case $opt in                          
@@ -37,6 +37,9 @@ break
 echo Bonding Into a Pod 
 holograph operator:bond
 #pass
+break
+;;
+"Operator service")
 read -p "Enter Password : " HPass
 #service
 sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
