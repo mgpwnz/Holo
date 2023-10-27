@@ -85,7 +85,7 @@ holograph create:contract
 break
 ;;
 
-"logs")
+"Logs")
 journalctl -n 100 -f -u holograph
 break
 ;;
