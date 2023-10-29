@@ -79,11 +79,6 @@ sleep 2
 holograph faucet
 break
 ;;
-"Bridging")
-cd $HOME
-holograph create:contract
-break
-;;
 
 "Logs")
 journalctl -n 100 -f -u holograph
