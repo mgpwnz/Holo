@@ -62,8 +62,6 @@ ExecStart=holograph operator \
         --networks fuji mumbai
 Restart=always
 RestartSec=60
-StandardOutput=null
-StandardError=null
 LimitNOFILE=10000
 [Install]
 WantedBy=multi-user.target
